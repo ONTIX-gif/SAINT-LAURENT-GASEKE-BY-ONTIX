@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Saint Laurent de Gaseke</title>
+    <link rel="stylesheet" href="main.css">
+    <style>
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--border-radius-lg);
+            box-shadow: 0 10px 30px var(--shadow);
+            cursor: pointer;
+            transition: var(--transition);
+            height: 250px;
+            background: linear-gradient(135deg, #0d5f7f 0%, #0a4a63 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 45px rgba(0, 191, 255, 0.4);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+            filter: brightness(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.9) 100%);
+            padding: 20px;
+            transform: translateY(100%);
+            transition: var(--transition);
+            color: white;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-overlay h3 {
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+
+        .gallery-overlay p {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, transparent, transparent);
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <a href="gseke.html" class="home-btn">🏠 Home</a>
+
+    <header>
+        <h1>Saint Laurent de Gaseke</h1>
+        <p>Excellence in Technical and Vocational Education</p>
+    </header>
+
+    <nav class="main-nav">
+        <a href="gseke.html">Home</a>
+        <a href="about2.html">About</a>
+        <a href="page2.html">Trades</a>
+        <a href="admissions.html">Admissions</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contact.html">Contact</a>
+        <a href="PROJECTS.html">Projects</a>
+        <a href="https://mineduc.gov.rw" target="_blank">MINEDUC</a>
+    </nav>
+
+    <section>
+        <h2>Photo Gallery</h2>
+        <p>Explore our campus facilities, student activities, and ongoing projects</p>
+
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterGallery('all')">All</button>
+            <button class="filter-btn" onclick="filterGallery('facilities')">Facilities</button>
+            <button class="filter-btn" onclick="filterGallery('students')">Students</button>
+            <button class="filter-btn" onclick="filterGallery('projects')">Projects</button>
+            <button class="filter-btn" onclick="filterGallery('events')">Events</button>
+        </div>
+
+        <div class="gallery-grid" id="gallery">
+            <!-- Campus Facilities -->
+            <div class="gallery-item facilities" onclick="openModal(this)">
+                <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #2a6f8a, #1a4960); display: flex; align-items: center; justify-content: center;">
+                    <span style="font-size: 60px;">🏢</span>
+                </div>
+                <div class="gallery-overlay">
+                    <h3>Main Campus Building</h3>
+                    <p>Modern classroom facilities with state-of-the-art infrastructure</p>
+                </div>
+            </div>
+
+            <!-- Laboratory -->
+            <div class="gallery-item facilities" onclick="openModal(this)">
+                <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #1a5f7f, #0a3a5f); display: flex; align-items: center; justify-content: center;">
+                    <span style="font-size: 60px;">🔬</span>
+                </div>
+                <div class="gallery-overlay">
+                    <h3>Computer Laboratory</h3>
+                    <p>Equipped with latest hardware and software for technical training</p>
+                </div>
+            </div>
+
+            <!-- Library -->
+            <div class="gallery-item facilities" onclick="openModal(this)">
+                <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #2a7f9a, #1a5f7f); display: flex; align-items: center; justify-content: center;">
+                    <span style="font-size: 60px;">📚</span>
+                </div>
+                <div class="gallery-overlay">
+                    <h3>Resource Library</h3>
+                    <p>Extensive collection of technical books and digital resources</p>
+                </div>
+            </div>
+
+            <!-- Workshop -->
+            <div class="gallery-item facilities" onclick="openModal(this)">
+                <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #1a6f7f, #0a4f6f); display: flex; align-items: center; justify-content: center;">
+                    <span style="font-size: 60px;">🔧</span>
+                </div>
+                <div class="gallery-overlay">
+                    <h3>Technical Workshop</h3>
+                    <p>Hands-on training facilities for electrical and construction trades</p>
+                </div>
+            </div>
+
+            <!-- Student Activities -->
+            <div class="gallery-item students" onclick="openModal(this)">
+                <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #2a5f9a, #1a3f7f); display: flex; align-items: center; justify-content: center;">
+                    <span style="font-size: 60px;">👨‍💻</span>
+                </div>
+                <div class="gallery-overlay">
+                    <h3>Coding Workshop</h3>
+                    <p>Students engaged in software development project work</p>
+                </div>
+            </div>
+
+            <!-- Group Photo -->
+            <div class="gallery-item students" onclick="openModal(this)">
+                <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #3a7faa, #2a5f8a); display: flex; align-items: center; justify-content: center;">
+                    <span style="font-size: 60px;">👥</span>
+                </div>
+                <div class="gallery-overlay">
+                    <h3>Student Community</h3>
+                    <p>Diverse group of scholars pursuing technical excellence</p>
+                </div>
+            </div>
+
+            <!-- Celebration -->
+            <div class="gallery-item events" onclick="openModal(this)">
+                <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #2a8fba, #1a6f9a); display: flex; align-items: center; justify-content: center;">
+                    <span style="font-size: 60px;">🎉</span>
+                </div>
+                <div class="gallery-overlay">
+                    <h3>School Celebration</h3>
+                    <p>Annual awards and recognition event for outstanding students</p>
+                </div>
+            </div>
+
+            <!-- Construction Project -->
+            <div class="gallery-item projects" onclick="openModal(this)">
+                <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #1a7f9f, #0a5f7f); display: flex; align-items: center; justify-content: center;">
+                    <span style="font-size: 60px;">🏗️</span>
+                </div>
+                <div class="gallery-overlay">
+                    <h3>BDC Project</h3>
+                    <p>Building Construction students working on infrastructure development</p>
+                </div>
+            </div>
+
+            <!-- Solar Installation -->
+            <div class="gallery-item projects" onclick="openModal(this)">
+                <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #2a7faa, #1a5f8a); display: flex; align-items: center; justify-content: center;">
+                    <span style="font-size: 60px;">☀️</span>
+                </div>
+                <div class="gallery-overlay">
+                    <h3>Solar Power System</h3>
+                    <p>ETE students installing renewable energy on campus</p>
+                </div>
+            </div>
+
+            <!-- Networking Project -->
+            <div class="gallery-item projects" onclick="openModal(this)">
+                <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #1a6faa, #0a4f8a); display: flex; align-items: center; justify-content: center;">
+                    <span style="font-size: 60px;">📡</span>
+                </div>
+                <div class="gallery-overlay">
+                    <h3>Network Infrastructure</h3>
+                    <p>ELT students implementing campus-wide connectivity solutions</p>
+                </div>
+            </div>
+
+            <!-- Seminar -->
+            <div class="gallery-item events" onclick="openModal(this)">
+                <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #3a8fca, #2a6faa); display: flex; align-items: center; justify-content: center;">
+                    <span style="font-size: 60px;">🎓</span>
+                </div>
+                <div class="gallery-overlay">
+                    <h3>Industry Seminar</h3>
+                    <p>Guest speakers from technology and construction industries</p>
+                </div>
+            </div>
+
+            <!-- Graduation -->
+            <div class="gallery-item events" onclick="openModal(this)">
+                <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #2a9fda, #1a7fba); display: flex; align-items: center; justify-content: center;">
+                    <span style="font-size: 60px;">🎓</span>
+                </div>
+                <div class="gallery-overlay">
+                    <h3>Graduation Ceremony</h3>
+                    <p>Celebrating the achievement of our graduating class</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Saint Laurent de Gaseke | Excellence in Technical Education</p>
+        <div class="footer-links">
+            <a href="admissions.html">Admissions</a>
+            <a href="contact.html">Contact</a>
+            <a href="page2.html">Programs</a>
+            <a href="https://mineduc.gov.rw">MINEDUC</a>
+        </div>
+    </footer>
+
+    <script>
+        function filterGallery(category) {
+            const items = document.querySelectorAll('.gallery-item');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'block';
+                    setTimeout(() => item.style.opacity = '1', 10);
+                } else {
+                    item.style.opacity = '0';
+                    setTimeout(() => item.style.display = 'none', 300);
+                }
+            });
+        }
+
+        function openModal(element) {
+            const title = element.querySelector('.gallery-overlay h3').textContent;
+            const description = element.querySelector('.gallery-overlay p').textContent;
+            alert(`${title}\n\n${description}`);
+        }
+    </script>
+</body>
+</html>
